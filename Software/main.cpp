@@ -29,6 +29,15 @@ int main()
     int s = 1;
     cout << "Following are shortest distances from source " << s <<" \n";
     g.shortestPath(s);
+    cout << "\n";
+    
+    
+    Graph g2(0);
+    g2.readGraph("/Users/reihalle/Downloads/Ex1/G0.txt");
+    cout << "Following are shortest distances from source " << "0" <<" \n";
+    g2.shortestPath(0);
+    cout << "\n";
+    
     
     return 0;
 }

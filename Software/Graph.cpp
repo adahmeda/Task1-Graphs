@@ -13,7 +13,7 @@ Graph::Graph(int V){
     adj = new list<AdjListNode>[V];
 }
 
-void Graph::addEdge(int u, int v, int weight){
+void Graph::addEdge(int u, int v, double weight){
     AdjListNode node(v, weight);
     adj[u].push_back(node); // Add v to u's list
 }
@@ -42,7 +42,7 @@ void Graph::topologicalSortUtil(int v, bool visited[], stack<int> &Stack){
 void Graph::shortestPath(int s)
 {
     stack<int> Stack;
-    int dist[V];
+    double dist[V];
     
     // Mark all the vertices as not visited
     bool *visited = new bool[V];
@@ -81,6 +81,34 @@ void Graph::shortestPath(int s)
     // Print the calculated shortest distances
     for (int i = 0; i < V; i++)
         (dist[i] == INF)? cout << "INF ": cout << dist[i] << " ";
+}
+
+void Graph::readGraph(const char *In){
+    
+    FILE *inFile;
+    inFile = fopen(In, "r");
+    if (inFile==NULL){
+        printf("Error opening file\n");
+    } else{
+ 
+        
+        int nodes ,edges, node, edge;
+        double weight;
+        fscanf(inFile, "%d %d", &nodes, &edges);
+        this->V = nodes;
+        adj = new list<AdjListNode>[nodes];
+        
+        for(int i = 0; i < edges; i++){
+            fscanf(inFile, "%d %d %lf", &node, &edge, &weight);
+            this->addEdge(node, edge, weight);
+
+        }
+        fclose(inFile);
+
+    }
+
+
+    
 }
 
 

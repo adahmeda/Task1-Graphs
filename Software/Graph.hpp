@@ -26,11 +26,11 @@ using namespace std;
 class AdjListNode
 {
     int v;
-    int weight;
+    double weight;
 public:
-    AdjListNode(int _v, int _w)  { v = _v;  weight = _w;}
+    AdjListNode(int _v, double _w)  { v = _v;  weight = _w;}
     int getV()       {  return v;  }
-    int getWeight()  {  return weight; }
+    double getWeight()  {  return weight; }
 };
 
 // Class to represent a graph using adjacency list representation
@@ -47,10 +47,13 @@ public:
     Graph(int V);   // Constructor
     
     // function to add an edge to graph
-    void addEdge(int u, int v, int weight);
+    void addEdge(int u, int v, double weight);
     
     // Finds shortest paths from given source vertex
     void shortestPath(int s);
+    
+    //read file with nodes
+    void readGraph(const char *In);
 };
 
 #endif /* Graph_hpp */
