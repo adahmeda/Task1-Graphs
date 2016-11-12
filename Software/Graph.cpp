@@ -83,6 +83,24 @@ void Graph::shortestPath(int s)
         (dist[i] == INF)? cout << "INF ": cout << dist[i] << " ";
 }
 
+
+void Graph::BFS(int source)
+{
+    
+    const int GRAY=2,  BLACK=3;
+    int vertex = source;
+    list<AdjListNode>::iterator i;
+    i = adj[source].begin();
+    i->setColor(GRAY);
+    
+    
+    
+    
+    
+    
+    
+}
+
 void Graph::readGraph(const char *In){
     
     FILE *inFile;
@@ -96,6 +114,7 @@ void Graph::readGraph(const char *In){
         double weight;
         fscanf(inFile, "%d %d", &nodes, &edges);
         this->V = nodes;
+        this->E = edges;
         adj = new list<AdjListNode>[nodes];
         
         for(int i = 0; i < edges; i++){

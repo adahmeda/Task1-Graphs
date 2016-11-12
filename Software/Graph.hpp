@@ -25,10 +25,15 @@ using namespace std;
 // contains weight of the edge
 class AdjListNode
 {
+    const int WHITE=1, NIL = -1;
     int v;
+    int _color = WHITE;
     double weight;
+    int _pred = NIL;
 public:
     AdjListNode(int _v, double _w)  { v = _v;  weight = _w;}
+    void setColor(int color) { _color = color; }
+    void setPred(int pred) { _pred = pred; }
     int getV()       {  return v;  }
     double getWeight()  {  return weight; }
 };
@@ -37,6 +42,8 @@ public:
 class Graph
 {
     int V;    // No. of vertices'
+    
+    int E; // No. of edges'
     
     // Pointer to an array containing adjacency lists
     list<AdjListNode> *adj;
@@ -54,6 +61,9 @@ public:
     
     //read file with nodes
     void readGraph(const char *In);
+    
+    //run BFS algorithem
+    void BFS(int source);
 };
 
 #endif /* Graph_hpp */
