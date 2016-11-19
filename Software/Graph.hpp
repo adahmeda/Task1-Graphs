@@ -45,6 +45,7 @@ class Graph
     
     int E; // No. of edges'
     
+    
     // Pointer to an array containing adjacency lists
     list<AdjListNode> *adj;
     
@@ -64,6 +65,8 @@ public:
     
     //run BFS algorithem
     void BFS(int source);
+    
+    void FloydWarshall();
 };
 
 #endif /* Graph_hpp */
