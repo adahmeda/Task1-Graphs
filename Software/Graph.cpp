@@ -116,6 +116,12 @@ int main(int argc, char** argv)
         exit(-1);
     }
   */
+    argv[1] = "-h";
+    
+    if( !strcmp(argv[1], "-h")){
+        cout << " -EV = Exclude Vertex" << endl;
+        exit(0);
+    }
     
     argv[1] = "/Users/reihalle/Downloads/Ex1/G0.txt";
     
