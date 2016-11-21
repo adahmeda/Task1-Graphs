@@ -10,10 +10,43 @@
 # include <iostream>
 # include <fstream>
 # include <string>
+#include <vector>
+#include <list>
+#include <queue>
+#define WHITE 1
+#define GRAY 2
+#define BLACK 3
+#define NIL -1
+
+
+
+
 
 using namespace::std;
 
 // class to handle comparisions and additions of infinite weighted quantities, used to store distances
+class BFS {
+private:
+    int size;
+    const int infinity = std::numeric_limits<int>::max();;
+public:
+    std::vector<std::list<int>> *graph;
+    std::queue<int> *queue;
+    int *dist, *pred, *color, *partition;
+    
+    BFS(int size){
+        queue = new std::queue<int>();
+        dist = new int[size];
+        pred = new int[size];
+        color = new int[size];
+        partition = new int[size];
+    //    clear();
+    }
+
+    
+};
+
+
 class Distance
 {
 private:
@@ -116,13 +149,13 @@ int main(int argc, char** argv)
         exit(-1);
     }
   */
-    argv[1] = "-h";
+/*    argv[1] = "-h";
     
     if( !strcmp(argv[1], "-h")){
         cout << " -EV = Exclude Vertex" << endl;
         exit(0);
     }
-    
+  */  
     argv[1] = "/Users/reihalle/Downloads/Ex1/G0.txt";
     
     ifstream ifile (argv[1]);
