@@ -17,7 +17,7 @@
 #define GRAY 2
 #define BLACK 3
 #define NIL -1
-
+using namespace std;
 
 
 
@@ -28,23 +28,125 @@ using namespace::std;
 class BFS {
 private:
     int size;
-    const int infinity = std::numeric_limits<int>::max();;
+    const int infinity = std::numeric_limits<int>::max();
 public:
-    std::vector<std::list<int>> *graph;
+    std::vector<std::list<int>> graph;
     std::queue<int> *queue;
+    std::list<int> *nodes;
     int *dist, *pred, *color, *partition;
     
-    BFS(int size){
+    BFS(){
+    }
+    
+    
+    BFS(int v){
+        std::vector<std::list<int>> graph(v);
+        
+        for (int i = 0; i < v; i++) {
+            graph[i] = *new list<int>;
+        }
+        
+        
+        nodes = new std::list<int>();
         queue = new std::queue<int>();
         dist = new int[size];
         pred = new int[size];
         color = new int[size];
         partition = new int[size];
-    //    clear();
+        clear();
+        
+        
+
+    }
+    
+    void clear(){
+        for (int i = 0; i< size; i++) {
+            dist[i] = infinity;
+            pred[i] = NIL;
+            color[i] = WHITE;
+            partition[i] = 0;
+        }
+    }
+    
+    void BFSearch(int s){
+
+        clear();
+        bool ans = true;
+        int vertex = s;
+        color[vertex] = GRAY;
+        dist[vertex] = 0;
+        pred[vertex] = NIL;
+        queue->push(vertex);
+        std::list<int> list;
+        std::list<int>::iterator iter;
+        while (!queue->empty()) {
+            int current = queue->front();
+            queue -> pop();
+            list = graph.at(current);
+            iter = list.begin();
+            while (ans && iter != list.end()) {
+                int currentNode = *iter++;
+                if(color[currentNode] == WHITE){
+                    color[currentNode] = GRAY;
+                    dist[currentNode] = dist[current] + 1;
+                    pred[currentNode] = current;
+                    queue->push(currentNode);
+                }
+                color[current] = BLACK;
+            }
+            
+            
+        }
     }
 
     
 };
+
+
+struct graph {
+    std::vector<int> color, dist;
+    
+    
+    graph(size_t nodes)
+    : m_adjacency_list(nodes), color(nodes), dist(nodes) {
+        size = nodes;
+    }
+    
+    size_t number_of_nodes() const {
+        return m_adjacency_list.size();
+    }
+    
+    std::vector<size_t> const& neighbours_of(size_t node) const {
+        return m_adjacency_list.at(node);
+    }
+    
+    void add_edge(size_t from, size_t to) {
+        std::vector<size_t>& al = m_adjacency_list.at(from);
+        if (to >= m_adjacency_list.size())
+            throw std::runtime_error("Tried to add edge to non-existant node");
+        for (size_t i = 0; i < al.size(); ++i) if (al[i] == to) return;
+        al.push_back(to);
+    }
+    
+    int getColor(size_t node) const{
+        return color[node];
+    }
+    
+    void setColor(size_t node, int _color){
+        color[node] = _color;
+    }
+    
+    size_t getNeighbours(size_t i, size_t j){
+        return m_adjacency_list.at(i).at(j);
+    }
+private:
+    size_t size;
+    const int infinity = std::numeric_limits<int>::max();
+    int *pred, *partition;
+    
+    std::vector<std::vector<size_t>> m_adjacency_list;
+};
+
 
 
 class Distance
@@ -155,7 +257,8 @@ int main(int argc, char** argv)
         cout << " -EV = Exclude Vertex" << endl;
         exit(0);
     }
-  */  
+  */
+
     argv[1] = "/Users/reihalle/Downloads/Ex1/G0.txt";
     
     ifstream ifile (argv[1]);
@@ -173,6 +276,16 @@ int main(int argc, char** argv)
     
     ifile >> V >> E;
     
+
+    
+
+    
+
+    graph g(V);
+    
+    for(int i = 0; i < V; i++){
+        g.color[i] = WHITE;
+    }
     
     // Matrices declared and initialised to infinity and zero respectively
     dist = new Distance * [V];
@@ -186,7 +299,6 @@ int main(int argc, char** argv)
     
     
     
-    
     // Read edges from input file
     for (i=0; i<E; i++)
     {
@@ -195,10 +307,77 @@ int main(int argc, char** argv)
         dist[v][u].setWeight(w);
         parent[u][v] = u;
         parent[v][u] = v;
+        
+        g.add_edge(u, v);
+        g.add_edge(v, u);
+        
     }
     ifile.close();
     
     
+    size_t maxIndex = 0;
+    
+    std::vector<graph> reached_by(g.number_of_nodes(), g.number_of_nodes());
+    std::queue<size_t> q;
+    size_t start = 0;
+    g.dist[0] = 0;
+    q.push(start);
+    while (!q.empty()) {
+        size_t node = q.front();
+        q.pop();
+        
+
+        
+        for (size_t i = 0; i < g.neighbours_of(node).size(); i++) {
+            size_t currentNode = g.getNeighbours(node, i);
+            if (g.getColor(currentNode) != BLACK) {
+                if (g.getColor(currentNode) == WHITE) {
+                    q.push(currentNode);
+                    g.dist[currentNode] = g.dist[node] + 1;
+                    if(maxIndex < g.dist[currentNode]){
+                        maxIndex = g.dist[currentNode];
+                        start = currentNode;
+                    }
+                }
+                g.setColor(currentNode, GRAY);
+            }
+            
+        }
+        g.setColor(node, BLACK);
+        
+    }
+    for(size_t i = 0; i < V; i++){
+        g.setColor(i, WHITE);
+        g.dist[i] = 0;
+    }
+    
+    q.push(start);
+    while (!q.empty()) {
+        size_t node = q.front();
+        q.pop();
+        
+        
+        
+        for (size_t i = 0; i < g.neighbours_of(node).size(); i++) {
+            size_t currentNode = g.getNeighbours(node, i);
+            if (g.getColor(currentNode) != BLACK) {
+                if (g.getColor(currentNode) == WHITE) {
+                    q.push(currentNode);
+                    g.dist[currentNode] = g.dist[node] + 1;
+                    if(maxIndex < g.dist[currentNode]){
+                        maxIndex = g.dist[currentNode];
+                        start = currentNode;
+                    }
+                }
+                g.setColor(currentNode, GRAY);
+            }
+            
+        }
+        g.setColor(node, BLACK);
+        
+    }
+
+    cout << "Diameter : " << maxIndex+1 << endl;
     
     // Path from vertex to itself is set
     for (i=0; i<V; i++)
