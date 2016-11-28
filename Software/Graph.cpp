@@ -360,7 +360,7 @@ int main(int argc, char** argv)
     
     double time = double(end - begin);
     
-    cout << "Time : " << time <<"m"<< endl;
+    cout << "Time : " << time <<"ms"<< endl;
     return 0;
 }
 
