@@ -6,13 +6,14 @@
 //  Copyright © 2016 Rei Halle. All rights reserved.
 //
 
-
+#include "Graph.hpp"
 # include <iostream>
 # include <fstream>
 # include <string>
 #include <vector>
 #include <list>
 #include <queue>
+#include <ctime>
 #define WHITE 1
 #define GRAY 2
 #define BLACK 3
@@ -20,87 +21,6 @@
 using namespace std;
 
 
-
-
-using namespace::std;
-
-// class to handle comparisions and additions of infinite weighted quantities, used to store distances
-class BFS {
-private:
-    int size;
-    const int infinity = std::numeric_limits<int>::max();
-public:
-    std::vector<std::list<int>> graph;
-    std::queue<int> *queue;
-    std::list<int> *nodes;
-    int *dist, *pred, *color, *partition;
-    
-    BFS(){
-    }
-    
-    
-    BFS(int v){
-        std::vector<std::list<int>> graph(v);
-        
-        for (int i = 0; i < v; i++) {
-            graph[i] = *new list<int>;
-        }
-        
-        
-        nodes = new std::list<int>();
-        queue = new std::queue<int>();
-        dist = new int[size];
-        pred = new int[size];
-        color = new int[size];
-        partition = new int[size];
-        clear();
-        
-        
-
-    }
-    
-    void clear(){
-        for (int i = 0; i< size; i++) {
-            dist[i] = infinity;
-            pred[i] = NIL;
-            color[i] = WHITE;
-            partition[i] = 0;
-        }
-    }
-    
-    void BFSearch(int s){
-
-        clear();
-        bool ans = true;
-        int vertex = s;
-        color[vertex] = GRAY;
-        dist[vertex] = 0;
-        pred[vertex] = NIL;
-        queue->push(vertex);
-        std::list<int> list;
-        std::list<int>::iterator iter;
-        while (!queue->empty()) {
-            int current = queue->front();
-            queue -> pop();
-            list = graph.at(current);
-            iter = list.begin();
-            while (ans && iter != list.end()) {
-                int currentNode = *iter++;
-                if(color[currentNode] == WHITE){
-                    color[currentNode] = GRAY;
-                    dist[currentNode] = dist[current] + 1;
-                    pred[currentNode] = current;
-                    queue->push(currentNode);
-                }
-                color[current] = BLACK;
-            }
-            
-            
-        }
-    }
-
-    
-};
 
 
 struct graph {
@@ -245,21 +165,24 @@ string obtainPath(int i, int j)
 
 int main(int argc, char** argv)
 {
- /*   if(argc < 2)
+    if(argc < 2)
     {
-        cout << "Check README for usage." << endl;
+        cout << "Erorr." << endl;
         exit(-1);
     }
-  */
-/*    argv[1] = "-h";
+  
+
     
     if( !strcmp(argv[1], "-h")){
         cout << " -EV = Exclude Vertex" << endl;
         exit(0);
     }
-  */
 
-    argv[1] = "/Users/reihalle/Downloads/Ex1/G0.txt";
+
+  //  argv[1] = "/Users/reihalle/Downloads/Ex1/G0.txt"; / Test argument
+    
+    //Start the clock
+    clock_t begin = clock();
     
     ifstream ifile (argv[1]);
     
@@ -431,50 +354,18 @@ int main(int argc, char** argv)
     delete [] dist;
     delete [] parent;
     
+    
+    //Stop the clock
+    clock_t end = clock();
+    
+    double time = double(end - begin);
+    
+    cout << "Time : " << time <<"m"<< endl;
     return 0;
 }
 
-#include "Graph.hpp"
-
-Graph::Graph(int V){
-    this->V = V;
-    adj = new list<AdjListNode>[V];
-}
-
-void Graph::addEdge(int u, int v, double weight){
-    AdjListNode node(v, weight);
-    adj[u].push_back(node); // Add v to u's list
-}
 
 
 
-void Graph::readGraph(const char *In){
-    
-    FILE *inFile;
-    inFile = fopen(In, "r");
-    if (inFile==NULL){
-        printf("Error opening file\n");
-    } else{
- 
-        
-        int nodes ,edges, node, edge;
-        double weight;
-        fscanf(inFile, "%d %d", &nodes, &edges);
-        this->V = nodes;
-        this->E = edges;
-        adj = new list<AdjListNode>[nodes];
-        
-        for(int i = 0; i < edges; i++){
-            fscanf(inFile, "%d %d %lf", &node, &edge, &weight);
-            this->addEdge(node, edge, weight);
-
-        }
-        fclose(inFile);
-
-    }
-
-
-    
-}
 
 
