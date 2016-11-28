@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C62577791DEC05DC00450267 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = C62577781DEC05DC00450267 /* Makefile */; };
 		C69BE9821DD39B5300D443C5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C69BE9811DD39B5300D443C5 /* main.cpp */; };
 		C69BE98A1DD3BBEB00D443C5 /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C69BE9881DD3BBEB00D443C5 /* Graph.cpp */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C62577781DEC05DC00450267 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		C69BE97E1DD39B5300D443C5 /* Software */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Software; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69BE9811DD39B5300D443C5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C69BE9881DD3BBEB00D443C5 /* Graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graph.cpp; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				C69BE98B1DD3BBF100D443C5 /* headers */,
 				C69BE9811DD39B5300D443C5 /* main.cpp */,
 				C69BE9881DD3BBEB00D443C5 /* Graph.cpp */,
+				C62577781DEC05DC00450267 /* Makefile */,
 			);
 			path = Software;
 			sourceTree = "<group>";
@@ -131,6 +134,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C62577791DEC05DC00450267 /* Makefile in Sources */,
 				C69BE98A1DD3BBEB00D443C5 /* Graph.cpp in Sources */,
 				C69BE9821DD39B5300D443C5 /* main.cpp in Sources */,
 			);
